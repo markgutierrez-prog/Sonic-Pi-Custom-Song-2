@@ -4,25 +4,37 @@ use_bpm 120
 use_synth :piano
 use_octave -1
 
-i = 0
 beats1 = [:g4, :bb4, :db5, :g5,
           :f5, :c5, :ab4, :f5,
           :c5, :eb5, :ab5, :c6,
           :ab4, :c5, :eb5, :g5]
-e = 0
+
 beats2 = [:g4, :bb4, :db5, :g5,
           :f5, :c5, :ab4, :f5,
           :eb5, :g5, :bb5, :g5,
           :c5, :ab4, :f4, :c5]
-define :main1 do |beats1, beats2|
-  16.times do
-    play beats1[i], release: 0.6, amp: 0.6
-    i = i+1
+
+beats3 = [:f4, :ab4, :c5, :f5,
+          :c5, :ab4, :f4, :c5,
+          :eb5, :g5, :c6, :g5,
+          :eb5, :c5, :g4, :eb5]
+
+beats4 = [:f4, :ab4, :c5, :f5,
+          :c5, :ab4, :f4, :c5,
+          :g5, :bb5, :g5, :eb5,
+          :c5, :g4, :f4, :c5]
+
+define :mainplay do |a, b|
+  index = 0
+  a.each do
+    play a[index], release: 0.6, amp: 0.6
+    index = index+1
     sleep 0.25
   end
-  16.times do
-    play beats2[e], release: 0.6, amp: 0.6
-    e = e+1
+  index = 0
+  b.each do
+    play a[index], release: 0.6, amp: 0.6
+    index = index+1
     sleep 0.25
   end
 end
@@ -32,17 +44,12 @@ define :secondary1 do
   sleep 0.75
   play_chord [:g3, :bb3, :db4], release: 2.5
   sleep 0.25
-  
-  play_chord [:f2, :f3], release: 2.5
-  sleep 0.75
-  play_chord [:ab3, :c4, :f4], release: 2.5
-  sleep 0.25
-  
-  play_chord [:f2, :f3], release: 2.5
-  sleep 0.75
-  play_chord [:ab3, :c4, :f4], release: 2.5
-  sleep 0.25
-  
+  2.times do
+    play_chord [:f2, :f3], release: 2.5
+    sleep 0.75
+    play_chord [:ab3, :c4, :f4], release: 2.5
+    sleep 0.25
+  end
   play_chord [:ab2, :ab3], release: 2.5
   sleep 0.75
   play_chord [:c4, :eb4, :ab4], release: 2.5
@@ -59,56 +66,26 @@ define :transition do
   sample :drum_snare_soft, amp: 0.6
   sleep 0.25
 end
-#SPLIT
-
-f = 0
-beats1part2 = [:f4, :ab4, :c5, :f5,
-               :c5, :ab4, :f4, :c5,
-               :eb5, :g5, :c6, :g5,
-               :eb5, :c5, :g4, :eb5]
-g = 0
-beats2part2 = [:f4, :ab4, :c5, :f5,
-               :c5, :ab4, :f4, :c5,
-               :g5, :bb5, :g5, :eb5,
-               :c5, :g4, :f4, :c5]
-define :main2 do |beats1part2, beats2part2|
-  16.times do
-    play beats1part2[f], release: 0.6, amp: 0.6
-    f = f+1
-    sleep 0.25
-  end
-  16.times do
-    play beats2part2[g], release: 0.6, amp: 0.6
-    g = g+1
-    sleep 0.25
-  end
-end
 
 define :secondary2 do
-  play_chord [:f2, :f3], release: 2.5
-  sleep 0.75
-  play_chord [:ab3, :c4, :f4], release: 2.5
-  sleep 0.25
+  2.times do
+    play_chord [:f2, :f3], release: 2.5
+    sleep 0.75
+    play_chord [:ab3, :c4, :f4], release: 2.5
+    sleep 0.25
+  end
+  2.times do
+    play_chord [:c2, :c3], release: 2.5
+    sleep 0.75
+    play_chord [:g3, :c4, :eb4], release: 2.5
+    sleep 0.25
+  end
   
-  play_chord [:f2, :f3], release: 2.5
-  sleep 0.75
-  play_chord [:ab3, :c4, :f4], release: 2.5
-  sleep 0.25
-  
-  play_chord [:c2, :c3], release: 2.5
-  sleep 0.75
-  play_chord [:g3, :c4, :eb4], release: 2.5
-  sleep 0.25
-  
-  play_chord [:c2, :c3], release: 2.5
-  sleep 0.75
-  play_chord [:g3, :c4, :eb4], release: 2.5
-  sleep 0.25
 end
 
 #SPLIT
 
-define :intro1 do
+define :introfunction1 do
   play_chord [:c3, :g3, :c4, :eb4], release: 4, amp: 0.9
   sleep 4
   
@@ -122,31 +99,30 @@ define :intro1 do
   sleep 4
 end
 
-define :intro2 do
-  use_synth :piano
-  
-  list1 = [:c4, :eb4, :g4, :c5, :eb5, :c5, :g4, :eb4]
-  i = 0
+intro1 = [:c4, :eb4, :g4, :c5, :eb5, :c5, :g4, :eb4]
+intro2 = [:c4, :eb4, :ab4, :c5, :eb5, :c5, :ab4, :eb4]
+
+define :introfunction2 do |x, y|
+  index = 0
   play :c3, sustain: 3.5, release: 0.5, amp: 0.8
-  8.times do
-    play list1[i], release: 0.4, amp: 0.7
-    i = i+1
+  x.each do
+    play x[index], release: 0.4, amp: 0.7
+    index = index+1
     sleep 0.5
   end
-  
-  list2 = [:c4, :eb4, :ab4, :c5, :eb5, :c5, :ab4, :eb4]
-  e = 0
+  index = 0
   play :ab3, sustain: 3.5, release: 0.5, amp: 0.8
-  8.times do
-    play list2[e], release: 0.4, amp: 0.7
-    e = e+1
+  y.each do
+    play y[index], release: 0.4, amp: 0.7
+    index = index+1
     sleep 0.5
   end
 end
 
+
 #SPLIT
 
-define :outro do
+define :outrofunction do
   in_thread do
     use_synth :hollow
     volume = 1
@@ -159,6 +135,7 @@ define :outro do
   
   volume = 1
   use_synth :piano
+  
   4.times do
     play :c5, amp: volume, release: 2
     sleep 0.5
@@ -173,13 +150,13 @@ define :outro do
     sleep 2.5
     volume = volume - 0.25
   end
-  play_chord [:c4, :g2, :c3], sustain: 4, release: 6, amp: 0.1
+  play_chord [:c4, :g2, :c3], sustain: 4, release: 6, amp: 0.3
 end
 
 
 with_fx :reverb, room: 0.8, mix: 0.6 do
-  intro1
-  intro2
+  introfunction1
+  introfunction2 intro1, intro2
   
   play_chord [:d4, :g4, :b4, :d5], release: 4, amp: 0.75
   
@@ -192,7 +169,7 @@ with_fx :reverb, room: 0.8, mix: 0.6 do
   
   in_thread do
     sleep 0.5
-    main2 beats1part2, beats2part2
+    mainplay beats3, beats4
   end
   2.times do
     secondary2
@@ -202,14 +179,14 @@ with_fx :reverb, room: 0.8, mix: 0.6 do
   transition
   
   in_thread do
-    main1 beats1, beats2
+    mainplay beats1, beats2
   end
   2.times do
     secondary1
   end
-  sleep 0.5
   
+  sleep 0.5
   transition
   
-  outro
+  outrofunction
 end
