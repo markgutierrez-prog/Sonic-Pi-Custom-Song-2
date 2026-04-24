@@ -175,7 +175,7 @@ with_fx :reverb, room: 0.8, mix: 0.6 do
     secondary2
   end
   
-  sleep 0.5
+  sleep 1
   transition
   
   in_thread do
@@ -185,7 +185,7 @@ with_fx :reverb, room: 0.8, mix: 0.6 do
     secondary1
   end
   
-  sleep 0.5
+  sleep 1
   transition
   
   outrofunction
