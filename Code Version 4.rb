@@ -3,7 +3,7 @@
 use_bpm 120
 use_synth :piano
 use_octave -1
-#set sample variable here see last line for the link
+death_sound = "C:/Users/mg730/Downloads/Undertale Death Sound Effect.mp3"
 
 beats1 = [:g4, :bb4, :db5, :g5,
           :f5, :c5, :ab4, :f5,
@@ -190,7 +190,5 @@ with_fx :reverb, room: 0.8, mix: 0.6 do
   transition
   
   outrofunction
-  #play custom sample here!
+  sample death_sound
 end
-
-#https://www.youtube.com/watch?v=VptasUujHf4 link to custom sample
