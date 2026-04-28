@@ -73,11 +73,11 @@ sync :song_transition
 
 
 # TRANSITION
-
+sleep 1.5
 transitionSound = "C:/Users/mg730/Documents/Audacity/finishedTransition.mp3"
 sample transitionSound
 sleep sample_duration transitionSound
-sleep 2
+sleep 4
 
 # CUSTOM SONG 2
 
@@ -116,7 +116,7 @@ define :mainplay do |a, b|
   end
   index = 0
   b.each do
-    play b[index], release: 0.6, amp: 0.6  # fixed: was a[index]
+    play b[index], release: 0.6, amp: 0.6
     index = index + 1
     sleep 0.25
   end
@@ -142,7 +142,7 @@ end
 
 define :secondary2 do
   use_synth :piano
-  2.times do
+  3.times do
     play_chord [:f2, :f3], release: 2.5
     sleep 0.75
     play_chord [:ab3, :c4, :f4], release: 2.5
@@ -186,14 +186,14 @@ define :introfunction2 do |x, y|
   x.each do
     play x[index], release: 0.4, amp: 0.7
     index = index + 1
-    sleep 0.5
+    sleep 0.75
   end
   index = 0
   play :ab3, sustain: 3.5, release: 0.5, amp: 0.8
   y.each do
     play y[index], release: 0.4, amp: 0.7
     index = index + 1
-    sleep 0.5
+    sleep 0.75
   end
 end
 
@@ -226,7 +226,7 @@ end
 with_fx :reverb, room: 0.8, mix: 0.6 do
   introfunction1
   introfunction2 intro1, intro2
-  
+  sleep 2
   use_synth :piano
   play_chord [:d4, :g4, :b4, :d5], release: 4, amp: 0.75
   
@@ -245,7 +245,7 @@ with_fx :reverb, room: 0.8, mix: 0.6 do
     secondary2
   end
   
-  sleep 1
+  sleep 2
   transition
   
   in_thread do
@@ -255,7 +255,7 @@ with_fx :reverb, room: 0.8, mix: 0.6 do
     secondary1
   end
   
-  sleep 1
+  sleep 2
   transition
   
   outrofunction
